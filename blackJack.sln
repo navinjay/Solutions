@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blackJack", "blackJack\blackJack.csproj", "{848950DE-EC2D-48B7-B728-4DBA3EE314B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A4EB2C67-AA1E-4729-A2F5-DB6CD978662F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blackJackTest", "blackJackTest\blackJackTest.csproj", "{98948683-08DE-40CC-9DAC-F4C0B587DE62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{848950DE-EC2D-48B7-B728-4DBA3EE314B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848950DE-EC2D-48B7-B728-4DBA3EE314B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848950DE-EC2D-48B7-B728-4DBA3EE314B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848950DE-EC2D-48B7-B728-4DBA3EE314B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98948683-08DE-40CC-9DAC-F4C0B587DE62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98948683-08DE-40CC-9DAC-F4C0B587DE62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98948683-08DE-40CC-9DAC-F4C0B587DE62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98948683-08DE-40CC-9DAC-F4C0B587DE62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
