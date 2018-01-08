@@ -35,8 +35,7 @@ namespace blackJack
         //Result
         public string WinnerOrLoser(int userValue, int computerValue)
         {
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.ForegroundColor = ConsoleColor.White;
+            
 
             if (userValue <= Constants.winPoint)
             {
@@ -54,8 +53,7 @@ namespace blackJack
             else
                 return ("you Busted!");
 
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            
         }
 
     }
@@ -165,8 +163,11 @@ namespace blackJack
                 Console.WriteLine("Computer Score :" + comp + "\n");
 
                 //check who has won
-
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine(WinnerOrLoser(user, comp));
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
