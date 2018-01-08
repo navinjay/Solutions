@@ -26,10 +26,13 @@ namespace blackJack
         public string checkOption = string.Empty;
         Random random = new Random();
         //Method to generate random numbers
+        //input
         public int RandomCardValue()
         {
             return random.Next(1, 11);
         }
+
+        //Result
         public string WinnerOrLoser(int userValue, int computerValue)
         {
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -72,39 +75,14 @@ namespace blackJack
 
             Console.WriteLine(Environment.NewLine);
         }
-        //user remaining turns
+        //user remaining trns
         public void UserCardDrawn()
         {
 
             Console.WriteLine(UserChance(user));
 
         }
-        public string ValidateUserOption(string response)
-        {
-            if (response == "y")
-            {
-                userTurn = RandomCardValue();
-                user += userTurn;
-                Console.WriteLine("your Card:" + userTurn + "\n" + "your Total:" + user + "\n");
-                return ("yes");
-            }
-            else if (response == "n")
-            {
-                return ("no");
-                
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Please enter valid option");
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-                return ("invalid");
-                
-            }
-            
-        }
+        
         public string UserChance(int userPoints)
         {
             user = userPoints;
@@ -133,11 +111,38 @@ namespace blackJack
            
                
         }
+        public string ValidateUserOption(string response)
+        {
+            if (response == "y")
+            {
+                userTurn = RandomCardValue();
+                user += userTurn;
+                Console.WriteLine("your Card:" + userTurn + "\n" + "your Total:" + user + "\n");
+                return ("yes");
+            }
+            else if (response == "n")
+            {
+                return ("no");
+
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter valid option");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                return ("invalid");
+
+            }
+
+        }
         
 
     }
     public  class Computer:User
-    {        
+    {       
+        //computer first turn 
         public void ComputerFirstCardDraw()
         {
 
@@ -150,22 +155,7 @@ namespace blackJack
             Console.Write(" " + compCard2 + "=" + comp);
             Console.WriteLine(Environment.NewLine);
         }
-        public bool ComputerChance(int userPoints)
-        {
-            user = userPoints;
-            while (comp < Constants.computerCheckPoint && comp <= user && user <= Constants.winPoint)
-            {
-                compTurn = RandomCardValue();
-                comp += compTurn;
-                Console.WriteLine("computer takes card :" + compTurn + "\n");
-            }
-            if (user > Constants.winPoint)
-                return false;
-            else
-                return true;
-
-            
-        }
+        //computer remaining trns
         public void ComputerCardDrawn()
         {
             if (ComputerChance(user))
@@ -188,6 +178,23 @@ namespace blackJack
             }
 
         }
+        public bool ComputerChance(int userPoints)
+        {
+            user = userPoints;
+            while (comp < Constants.computerCheckPoint && comp <= user && user <= Constants.winPoint)
+            {
+                compTurn = RandomCardValue();
+                comp += compTurn;
+                Console.WriteLine("computer takes card :" + compTurn + "\n");
+            }
+            if (user > Constants.winPoint)
+                return false;
+            else
+                return true;
+
+            
+        }
+       
     }
     
      public abstract class Game
