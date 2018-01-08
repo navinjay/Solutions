@@ -8,48 +8,89 @@ namespace blackJackTest
     public class GameTest
     {
         [TestMethod]
-        public void TestDraw()
-        {
-            //Mock<Game> chk = new Mock<Game>();
-            //chk.Setup(x => x.RandomUserCardValue("n")).Returns(4);
-
-            Game obj = new Game();
-
-            Assert.AreEqual(obj.WinnerOrLoser(20, 20), "Draw!");      
-        }
-        [TestMethod]
-        public void TestUserWon()
+        public void TestWinnerOrLoserDraw()
         {
             
-            Game obj = new Game();
-
-            Assert.AreEqual(obj.WinnerOrLoser(21, 20), "you have won!");
+            InputOutput result = new InputOutput();
+            string expected=result.WinnerOrLoser(20, 20);
+            string actual = "Draw!";
+            Assert.AreEqual(expected, actual);      
         }
         [TestMethod]
-        public void TestComputerWon()
+        public void TestWinnerOrLoserUserWon()
         {
-
-            Game obj = new Game();
-
-            Assert.AreEqual(obj.WinnerOrLoser(18, 20), "Computer has won!");
+            InputOutput result = new InputOutput();
+            string expected = result.WinnerOrLoser(21, 20);
+            string actual = "you have won!";
+            Assert.AreEqual(expected, actual); 
+           
         }
         [TestMethod]
-        public void TestComputerBusted()
+        public void TestWinnerOrLoserComputerWon()
         {
-
-            Game obj = new Game();
-
-            Assert.AreEqual(obj.WinnerOrLoser(18, 22), "Computer Busted!");
+            InputOutput result = new InputOutput();
+            string expected = result.WinnerOrLoser(18, 20);
+            string actual = "Computer has won!";
+            Assert.AreEqual(expected, actual); 
+            
+        }
+        [TestMethod]
+        public void TestWinnerOrLoserComputerBusted()
+        {
+            InputOutput result = new InputOutput();
+            string expected = result.WinnerOrLoser(18, 22);
+            string actual = "Computer Busted!";
+            Assert.AreEqual(expected, actual); 
+           
         }
    
         [TestMethod]
-        public void TestUserBusted()
+        public void TestWinnerOrLoserUserBusted()
         {
-
-            Game obj = new Game();
-
-            Assert.AreEqual(obj.WinnerOrLoser(22, 21), "you Busted!");
+            InputOutput result = new InputOutput();
+            string expected = result.WinnerOrLoser(22, 21);
+            string actual = "you Busted!";
+            Assert.AreEqual(expected, actual); 
+            
         }
+        [TestMethod]
+        public void TestValidateUserOptionNo()
+        {
+            User result = new User();
+            string expected = result.ValidateUserOption("n");
+            string actual = "no";
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void TestValidateUserOptionInvalid()
+        {
+            User result = new User();
+            string expected = result.ValidateUserOption("j");
+            string actual = "invalid";
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestUserChanceCardBusted()
+        {
+            User result = new User();
+            string expected = result.UserChance(22);
+            string actual = "You have crossed 21";
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void TestComputerChanceUserBusted()
+        {
+            Computer result = new Computer();
+            bool expected = result.ComputerChance(23);
+            bool actual = false;
+            Assert.AreEqual(expected, actual);
+
+        }
+       
        
     }
 }

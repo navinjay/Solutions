@@ -6,134 +6,209 @@ using System.Threading.Tasks;
 
 namespace blackJack
 {
-     public class Game
+    static class Constants
     {
-        // Declaring objects
-         private int user = 0;
-         private int comp = 0;
-        private int userCard1=0;
-        private int userCard2 = 0;
-        private int compCard1=0;
-        private int compCard2 = 0;
-        private int userTurn = 0;
-        private int compTurn = 0;
+        public const int winPoint=21;
+        public const int computerCheckPoint = 17;
+
+    }
+
+    public class InputOutput
+    {
+        public int user = 0;
+        public int userCard1 = 0;
+        public int userCard2 = 0;
+        public int userTurn = 0;
+        public int comp = 0;
+        public int compCard1 = 0;
+        public int compCard2 = 0;
+        public int compTurn = 0;
+        public string checkOption = string.Empty;
         Random random = new Random();
-         //Method to generate random numbers
-         public int RandomCardValue()
-         {
+        //Method to generate random numbers
+        public int RandomCardValue()
+        {
             return random.Next(1, 11);
-         }
+        }
+        public string WinnerOrLoser(int userValue, int computerValue)
+        {
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.White;
 
-         public void UserFirstCardDraw()
-         {
+            if (userValue <= Constants.winPoint)
+            {
+                if (userValue == computerValue)
+                    return ("Draw!");
+                else if (userValue > computerValue)
+                    return ("you have won!");
+                else if (computerValue > userValue && computerValue <= Constants.winPoint)
+                    return ("Computer has won!");
+                else if (computerValue > Constants.winPoint)
+                    return ("Computer Busted!");
+                else
+                    return ("");
+            }
+            else
+                return ("you Busted!");
 
-             userCard1 = RandomCardValue();
-             user += userCard1;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
-             userCard2 = RandomCardValue();
-             user += userCard2;
-             Console.Write("your cards:" + userCard1);
-             Console.Write(" " + userCard2 + "=" + user);
+    }
+    public class User:InputOutput
+    {       
+        //user first turn
+        public void UserFirstCardDraw()
+        {
 
-             Console.WriteLine(Environment.NewLine);
-         }
-         public void ComputerFirstCardDraw()
-         {
+            userCard1 = RandomCardValue();
+            user += userCard1;
 
-             compCard1 = RandomCardValue();
-             comp +=compCard1;
+            userCard2 = RandomCardValue();
+            user += userCard2;
+            Console.Write("your cards:" + userCard1 + "+");
+            Console.Write(" " + userCard2 + "=" + user);
 
-             compCard2 = RandomCardValue();
-             comp += compCard2;
-             Console.Write("Computer cards:" + compCard1);
-             Console.Write(" " + compCard2 + "=" + comp);
-             Console.WriteLine(Environment.NewLine);
-         }
+            Console.WriteLine(Environment.NewLine);
+        }
+        //user remaining turns
+        public void UserCardDrawn()
+        {
 
-         public void UserCardDrawn()
-         {
-             while (user < 21)
-             {
-                 Console.WriteLine("Do you want another card(y/n)?");
-                 String response = (Console.ReadLine().ToLower());
-                 if (response == "y")
-                 {
-                     userTurn = RandomCardValue();
-                     user += userTurn;
-                     Console.WriteLine("Hit:" + userTurn + "your Total is:" + user);
-                 }
-                 else if (response == "n")
-                 {
-                     break;
-                 }
-                 else { continue; }
+            Console.WriteLine(UserChance(user));
 
-             }
+        }
+        public string ValidateUserOption(string response)
+        {
+            if (response == "y")
+            {
+                userTurn = RandomCardValue();
+                user += userTurn;
+                Console.WriteLine("your Card:" + userTurn + "\n" + "your Total:" + user + "\n");
+                return ("yes");
+            }
+            else if (response == "n")
+            {
+                return ("no");
+                
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter valid option");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                return ("invalid");
+                
+            }
             
-         }
-         
-         public void ComputerCardDrawn()
-         {
-             if (user <= 21)
-             {
-                 while (comp < 17 && comp <= user)
-                 {
-                     compTurn = RandomCardValue();
-                     comp += compTurn;
-                     Console.WriteLine("computer takes card :" + compTurn);
+        }
+        public string UserChance(int userPoints)
+        {
+            user = userPoints;
+            while (user < Constants.winPoint)
+            {                
+                Console.WriteLine("Do you want another card(y/n)?");
+                String response = (Console.ReadLine().ToLower());
+               checkOption= ValidateUserOption(response);
+                if(checkOption=="no")
+                {
+                    break; 
+                }
+                if(checkOption=="invalid")
+                {
+                    continue;
+                }               
 
-                 }
-             }
-            Console.WriteLine("Your Score :" + user);
-            Console.WriteLine("Computer Score :"+comp);
+            }
+            
+            if (user > Constants.winPoint)
+            {
+                return ("You have crossed 21");
 
-            //check who has won
+            }
+            return ("Now its computer's turn");
+           
+               
+        }
+        
 
-            Console.WriteLine(WinnerOrLoser(user, comp));
+    }
+    public  class Computer:User
+    {        
+        public void ComputerFirstCardDraw()
+        {
 
+            compCard1 = RandomCardValue();
+            comp += compCard1;
 
-
+            compCard2 = RandomCardValue();
+            comp += compCard2;
+            Console.Write("Computer cards:" + compCard1 + "+");
+            Console.Write(" " + compCard2 + "=" + comp);
+            Console.WriteLine(Environment.NewLine);
+        }
+        public bool ComputerChance(int userPoints)
+        {
+            user = userPoints;
+            while (comp < Constants.computerCheckPoint && comp <= user && user <= Constants.winPoint)
+            {
+                compTurn = RandomCardValue();
+                comp += compTurn;
+                Console.WriteLine("computer takes card :" + compTurn + "\n");
+            }
+            if (user > Constants.winPoint)
+                return false;
+            else
+                return true;
 
             
-         }
-         public string WinnerOrLoser(int userValue,int computerValue)
-         {
-             if (userValue <= 21)
-             {
-                 if (userValue == computerValue)
-                     return ("Draw!");
-                 else if (userValue > computerValue)
-                     return ("you have won!");
-                 else if (computerValue > userValue && computerValue <= 21)
-                     return ("Computer has won!");
-                 else if (computerValue > 21)
-                     return ("Computer Busted!");
-                 else
-                     return ("");
-             }
-             else
-                 return ("you Busted!");
-         }
+        }
+        public void ComputerCardDrawn()
+        {
+            if (ComputerChance(user))
+            {
+                Console.WriteLine("Comparing Scores.......");
+                Console.WriteLine("Your Score :" + user);
+                Console.WriteLine("Computer Score :" + comp + "\n");
 
+                //check who has won
+
+                Console.WriteLine(WinnerOrLoser(user, comp));
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("You have busted!");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+        }
+    }
+    
+     public abstract class Game
+    {       
          //main class
-        public static void Main(string[] args)
+         public static void Main(string[] args)
          {
-             
-            Game obj = new Game();
-
-            
+             Computer comObj = new Computer();
             try
             {
                 //user first turn
-                obj.UserFirstCardDraw();
+                comObj.UserFirstCardDraw();
 
                 //computer first turn
-                obj.ComputerFirstCardDraw();
+                comObj.ComputerFirstCardDraw();
 
                 //user remaining turns
-                obj.UserCardDrawn();
+                comObj.UserCardDrawn();
+
                 //computer remaining turns
-                obj.ComputerCardDrawn();
+                comObj.ComputerCardDrawn();
                 
             }
              catch (Exception ex)
@@ -144,4 +219,5 @@ namespace blackJack
              Console.ReadLine();
         }
     }
+
 }
